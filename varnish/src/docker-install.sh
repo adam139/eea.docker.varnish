@@ -65,9 +65,10 @@ adduser --quiet --system --no-create-home --group varnish
 echo "========================================================================="
 echo "Installing varnish"
 echo "========================================================================="
-
-curl -fSL "https://varnish-cache.org/_downloads/$VARNISH_FILENAME" -o "$VARNISH_FILENAME"
-echo "$VARNISH_SHA256 *$VARNISH_FILENAME" | sha256sum -c -
+# using local file 
+# curl -fSL -m 300 "https://varnish-cache.org/_downloads/$VARNISH_FILENAME" -o "$VARNISH_FILENAME"
+# echo "$VARNISH_SHA256 *$VARNISH_FILENAME" | sha256sum -c -
+# echo `pwd`
 mkdir -p /usr/local/src
 tar -xzf "$VARNISH_FILENAME" -C /usr/local/src
 rm "$VARNISH_FILENAME"
@@ -84,7 +85,7 @@ echo "========================================================================="
 
 mkdir -p /etc/varnish/conf.d/ /usr/local/var/varnish /etc/chaperone.d
 chown -R varnish /etc/varnish /usr/local/var/varnish /etc/chaperone.d
-curl -o /tmp/varnish.tgz -SL https://download.varnish-software.com/varnish-modules/varnish-modules-0.15.0.tar.gz
+curl -m 300 -o /tmp/varnish.tgz -SL https://download.varnish-software.com/varnish-modules/varnish-modules-0.15.0.tar.gz
 tar -zxvf /tmp/varnish.tgz -C /tmp/
 rm -rf /tmp/varnish.tgz
 cd /tmp/varnish-modules-0.15.0
