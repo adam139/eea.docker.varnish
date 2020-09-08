@@ -1,7 +1,7 @@
-version: "2"
+version: "3"
 services:
   varnish:
-    image: eeacms/varnish
+    image: eea-varnish:4.1
     ports:
     - "80:6081"
     - "6085:6085"
@@ -24,14 +24,14 @@ services:
       DASHBOARD_SERVERS: "varnish"
       DASHBOARD_DNS_ENABLED: "true"
   anon:
-    image: eeacms/hello
+    image: simple-web:1.0
     environment:
       PORT: "8080"
   auth:
-    image: eeacms/hello
+    image: simple-web:1.0
     environment:
       PORT: "8080"
   download:
-    image: eeacms/hello
+    image: simple-web:1.0
     environment:
       PORT: "8080"
