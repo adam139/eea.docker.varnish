@@ -1,11 +1,15 @@
 FROM debian:stretch-slim
 MAINTAINER "EEA: IDM2 A-Team" <eea-edw-a-team-alerts@googlegroups.com>
 
+RUN sed -i "s@http://deb.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list \
+ && sed -i "s@http://security.debian.org@http://mirrors.aliyun.com@g" /etc/apt/sources.list
+
 COPY src/docker-install.sh /tmp/docker-install.sh
+COPY src/*.tgz  /
 RUN /tmp/docker-install.sh \
  && rm -rvf /tmp/*
 
-COPY src/*.py src/track* src/*.sh  /
+COPY src/*.py src/track* src/*.sh src/*.tgz  /
 COPY src/reload                    /usr/bin/reload
 COPY src/default.vcl               /etc/varnish/default.vcl
 
